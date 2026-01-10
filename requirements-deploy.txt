@@ -1,17 +1,14 @@
 # Lightweight requirements for free tier deployment
 # Render.com free tier has 512MB RAM limit
-
-# Core
-setuptools>=65.0.0
-wheel
+# Using versions with pre-built wheels (no Rust compilation needed)
 
 # FastAPI & Web Framework
-fastapi==0.109.0
-uvicorn==0.27.0
-pydantic==2.5.3
+fastapi>=0.100.0,<1.0.0
+uvicorn>=0.20.0,<1.0.0
+pydantic>=2.0.0,<3.0.0
 
 # HTTP Client for Groq API
-httpx==0.26.0
+httpx>=0.24.0,<1.0.0
 
 # Utilities
-python-dotenv==1.0.0
+python-dotenv>=1.0.0,<2.0.0

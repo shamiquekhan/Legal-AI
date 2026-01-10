@@ -3,9 +3,8 @@ services:
   - type: web
     name: legal-ai-backend
     runtime: python
-    python:
-      version: "3.11.7"
-    buildCommand: pip install --upgrade pip setuptools wheel && pip install -r requirements-deploy.txt
+    pythonVersion: "3.11.7"
+    buildCommand: pip install --upgrade pip && pip install -r requirements-deploy.txt
     startCommand: uvicorn src.main_standalone:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: GROQ_API_KEY
