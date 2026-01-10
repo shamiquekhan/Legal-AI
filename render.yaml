@@ -6,8 +6,8 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn src.main_standalone:app --host 0.0.0.0 --port $PORT
     envVars:
-      - key: OPENAI_API_KEY
-        sync: false  # Set manually in Render dashboard
+      - key: GROQ_API_KEY
+        sync: false  # Set manually in Render dashboard (FREE from groq.com)
       - key: PYTHON_VERSION
         value: 3.11.0
     healthCheckPath: /health
