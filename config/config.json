@@ -1,0 +1,244 @@
+{
+  "system": {
+    "name": "Constitutional AI RAG 2026",
+    "version": "2026.1.0",
+    "environment": "production"
+  },
+  
+  "database": {
+    "postgresql": {
+      "host": "localhost",
+      "port": 5432,
+      "database": "legal_db_2026",
+      "user": "postgres",
+      "password": "${POSTGRES_PASSWORD}",
+      "pool_size_min": 5,
+      "pool_size_max": 20,
+      "timeout": 30
+    },
+    "pgvector": {
+      "version": "0.8.0",
+      "hnsw_m": 16,
+      "hnsw_ef_construction": 64,
+      "hnsw_ef_search": 40
+    }
+  },
+  
+  "elasticsearch": {
+    "hosts": ["http://localhost:9200"],
+    "index_name": "legal_docs_2026_splade",
+    "timeout": 30,
+    "max_retries": 3,
+    "splade_version": "3.0"
+  },
+  
+  "embeddings": {
+    "model": "mixedbread-ai/mxbai-embed-large-v1",
+    "dimension": 1024,
+    "batch_size": 32,
+    "normalize": true,
+    
+    "colbert": {
+      "model": "colbert-v2",
+      "token_dimension": 128,
+      "max_tokens": 256,
+      "enabled": true
+    }
+  },
+  
+  "llm": {
+    "primary": {
+      "model": "llama-3.2-11b",
+      "api_base": "https://api.together.xyz/v1",
+      "max_tokens": 2048,
+      "temperature": 0.3,
+      "timeout": 30
+    },
+    "critic": {
+      "model": "qwen2.5-coder-14b",
+      "api_base": "https://api.together.xyz/v1",
+      "max_tokens": 1024,
+      "temperature": 0.5
+    },
+    "long_context": {
+      "model": "claude-3-5-sonnet-20241022",
+      "api_base": "https://api.anthropic.com/v1",
+      "max_tokens": 4096,
+      "context_window": 128000
+    }
+  },
+  
+  "retrieval": {
+    "top_k": 20,
+    "rerank_top_k": 10,
+    
+    "chunking": {
+      "strategy": "adaptive",
+      "min_chunk_size": 256,
+      "max_chunk_size": 1024,
+      "overlap": 128,
+      "preserve_legal_structure": true
+    },
+    
+    "dense_retrieval": {
+      "enabled": true,
+      "weight": 0.4
+    },
+    
+    "sparse_retrieval": {
+      "enabled": true,
+      "method": "splade_v3",
+      "weight": 0.3
+    },
+    
+    "graph_rag": {
+      "enabled": true,
+      "expansion_depth": 2,
+      "min_edge_weight": 0.5,
+      "weight": 0.3,
+      "graph_types": ["entity", "citation", "semantic"]
+    },
+    
+    "colbert_reranking": {
+      "enabled": true,
+      "batch_size": 16
+    },
+    
+    "fusion": {
+      "method": "rrf",
+      "rrf_k": 60
+    }
+  },
+  
+  "generation": {
+    "method": "self_tar",
+    "max_iterations": 3,
+    "min_confidence": 0.7,
+    
+    "self_tar": {
+      "enabled": true,
+      "critique_threshold": 0.6,
+      "improvement_threshold": 0.1,
+      "max_critiques": 2
+    },
+    
+    "crag": {
+      "enabled": false,
+      "quality_threshold": 0.5,
+      "web_search_fallback": true,
+      "web_search_top_k": 5
+    },
+    
+    "long_rag": {
+      "enabled": false,
+      "context_window": 128000,
+      "compression_ratio": 0.3
+    },
+    
+    "citation_style": "legal",
+    "include_reasoning": true
+  },
+  
+  "safety": {
+    "hallucination_detection": {
+      "enabled": true,
+      "levels": 7,
+      "threshold": 0.3,
+      "fail_on_high_risk": true,
+      
+      "level_weights": {
+        "factual_consistency": 0.25,
+        "citation_accuracy": 0.20,
+        "temporal_consistency": 0.15,
+        "entity_consistency": 0.15,
+        "source_attribution": 0.10,
+        "cross_document": 0.10,
+        "recent_judgments": 0.05
+      }
+    },
+    
+    "content_filtering": {
+      "enabled": true,
+      "block_pii": true,
+      "block_harmful": true
+    }
+  },
+  
+  "performance": {
+    "targets": {
+      "latency_p95_ms": 2000,
+      "ndcg_at_10": 0.93,
+      "hallucination_rate": 0.018,
+      "availability": 0.999
+    },
+    
+    "caching": {
+      "enabled": true,
+      "ttl_seconds": 3600,
+      "max_entries": 10000
+    },
+    
+    "batch_processing": {
+      "enabled": true,
+      "batch_size": 16,
+      "max_wait_ms": 100
+    }
+  },
+  
+  "monitoring": {
+    "prometheus": {
+      "enabled": true,
+      "port": 9090,
+      "path": "/metrics"
+    },
+    
+    "logging": {
+      "level": "INFO",
+      "format": "json",
+      "output": "stdout"
+    },
+    
+    "alerts": {
+      "high_latency_ms": 3000,
+      "high_hallucination_rate": 0.05,
+      "low_availability": 0.99
+    }
+  },
+  
+  "data": {
+    "sources": [
+      {
+        "name": "Constitution of India",
+        "type": "constitution",
+        "path": "data/constitution/",
+        "priority": 1
+      },
+      {
+        "name": "Supreme Court Judgments",
+        "type": "judgments",
+        "path": "data/judgments/",
+        "priority": 2
+      },
+      {
+        "name": "Acts and Statutes",
+        "type": "acts",
+        "path": "data/acts/",
+        "priority": 2
+      }
+    ],
+    
+    "update_frequency": "daily",
+    "auto_index": true
+  },
+  
+  "api": {
+    "host": "0.0.0.0",
+    "port": 8001,
+    "workers": 4,
+    "cors_origins": ["*"],
+    "rate_limit": {
+      "enabled": true,
+      "requests_per_minute": 60
+    }
+  }
+}

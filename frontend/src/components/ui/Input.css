@@ -1,0 +1,192 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.input-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #ececec;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.required-mark {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: #212121;
+  border: 2px solid #3a3a3a;
+  border-radius: 8px;
+  color: #ececec;
+  font-size: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  min-height: 48px;
+}
+
+.input-wrapper input.has-icon {
+  padding-left: 2.75rem;
+}
+
+.input-wrapper input::placeholder {
+  color: #6b7280;
+}
+
+.input-wrapper input:hover:not(:disabled) {
+  border-color: #4a4a4a;
+  background-color: #252525;
+}
+
+.input-wrapper input:focus {
+  outline: none;
+  border-color: #10a37f;
+  box-shadow: 0 0 0 3px rgba(16, 163, 127, 0.2);
+  background-color: #1a1a1a;
+}
+
+.input-wrapper input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #1a1a1a;
+}
+
+/* Icon */
+.input-icon {
+  position: absolute;
+  left: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+
+.input-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.input-container.focused .input-icon {
+  color: #10a37f;
+}
+
+/* Password Toggle */
+.password-toggle {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+  border-radius: 4px;
+}
+
+.password-toggle:hover {
+  color: #ececec;
+}
+
+.password-toggle:focus-visible {
+  outline: 2px solid #10a37f;
+  outline-offset: 2px;
+}
+
+.password-toggle svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Error State */
+.input-container.has-error .input-wrapper input {
+  border-color: #ef4444;
+}
+
+.input-container.has-error .input-wrapper input:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+.input-error {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: #ef4444;
+  font-size: 0.8125rem;
+  margin: 0;
+  animation: errorShake 0.3s ease-in-out;
+}
+
+.input-error svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+@keyframes errorShake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
+}
+
+/* Success State */
+.input-container.has-success .input-wrapper input {
+  border-color: #10a37f;
+}
+
+.input-success {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: #10a37f;
+  font-size: 0.8125rem;
+  margin: 0;
+}
+
+.input-success svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+/* Hint */
+.input-hint {
+  color: #6b7280;
+  font-size: 0.8125rem;
+  margin: 0;
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .input-wrapper input {
+    font-size: 16px; /* Prevents zoom on iOS */
+    min-height: 52px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .input-wrapper input {
+    transition: none;
+  }
+  
+  .input-error {
+    animation: none;
+  }
+}

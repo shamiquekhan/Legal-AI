@@ -1,0 +1,91 @@
+/* Chat Page Styles */
+/* This file imports the main chat styles from App.css */
+/* and adds additional styles for the authenticated chat interface */
+
+/* Skip Link */
+.app .skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.75rem 1.5rem;
+  background: var(--accent-color, #10a37f);
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 0 0 8px 8px;
+  z-index: 1000;
+  transition: top 0.2s ease;
+}
+
+.app .skip-link:focus {
+  top: 0;
+}
+
+/* Status Indicator */
+.status-indicator.checking {
+  color: var(--text-secondary);
+}
+
+.status-indicator.checking .loading-spinner {
+  margin-right: 4px;
+}
+
+/* Additional Chat-specific styles */
+
+/* Logout Button */
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 8px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.logout-btn:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--border-light);
+}
+
+.logout-btn:focus-visible {
+  outline: 2px solid var(--accent-color, #10a37f);
+  outline-offset: 2px;
+}
+
+.logout-btn svg {
+  opacity: 0.7;
+}
+
+.logout-btn:hover svg {
+  opacity: 1;
+}
+
+/* User Avatar - Dynamic initial */
+.avatar-user {
+  text-transform: uppercase;
+}
+
+/* Focus visible for all interactive elements */
+.new-chat-btn:focus-visible,
+.suggestion-btn:focus-visible,
+.history-item:focus-visible {
+  outline: 2px solid var(--accent-color, #10a37f);
+  outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .typing-indicator span {
+    animation: none;
+    opacity: 0.5;
+  }
+}

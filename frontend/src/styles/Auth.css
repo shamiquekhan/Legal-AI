@@ -1,0 +1,250 @@
+/* ==========================================================================
+   AUTH PAGES - Swiss Minimalist Design
+   ========================================================================== */
+
+.auth-page {
+  min-height: 100vh;
+  background: #fafafa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.auth-card {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  padding: 48px 40px;
+}
+
+.auth-header {
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+.auth-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: #d1fae5;
+  margin-bottom: 24px;
+  color: #059669;
+}
+
+.auth-header h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #0a0a0a;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.auth-header p {
+  color: #525252;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-error {
+  padding: 12px 16px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  font-size: 0.875rem;
+  text-align: left;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #0a0a0a;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px 16px;
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+  color: #0a0a0a;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.15s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #059669;
+}
+
+.form-group input::placeholder {
+  color: #a3a3a3;
+}
+
+.auth-submit {
+  width: 100%;
+  padding: 14px 24px;
+  background: #059669;
+  border: 1px solid #059669;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: inherit;
+}
+
+.auth-submit:hover {
+  background: #047857;
+  border-color: #047857;
+}
+
+.auth-submit:disabled {
+  background: #e0e0e0;
+  border-color: #e0e0e0;
+  color: #a3a3a3;
+  cursor: not-allowed;
+}
+
+.loading-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid transparent;
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.auth-footer p {
+  color: #525252;
+  font-size: 0.875rem;
+}
+
+.auth-footer a {
+  color: #059669;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.15s ease;
+}
+
+.auth-footer a:hover {
+  color: #047857;
+}
+
+.back-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #525252;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.15s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.back-home:hover {
+  color: #0a0a0a;
+}
+
+/* Password Strength */
+.password-field-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.password-strength {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.strength-bars {
+  display: flex;
+  gap: 4px;
+}
+
+.strength-bar {
+  flex: 1;
+  height: 3px;
+  background: #e0e0e0;
+  transition: background-color 0.2s ease;
+}
+
+.strength-bar.active {
+  background: #059669;
+}
+
+/* Focus States */
+.auth-logo:focus-visible,
+.auth-footer a:focus-visible,
+.back-home:focus-visible {
+  outline: 2px solid #059669;
+  outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .auth-page {
+    padding: 1rem;
+  }
+  
+  .auth-card {
+    padding: 32px 24px;
+  }
+  
+  .auth-header {
+    margin-bottom: 32px;
+  }
+  
+  .back-home {
+    padding: 12px 16px;
+    min-height: 44px;
+  }
+}
